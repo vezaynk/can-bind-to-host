@@ -14,6 +14,15 @@ The implementation of `can-bind-to-host` is very short (it's less than 25 lines!
 
 ### API
 
+```js
+import canBindToHost from 'can-bind-to-host';
+
+// Check if bindable to localhost:8080
+canBindToHost("localhost", 8080)
+    .then(bindable => bindable ? "Yes" : "No")
+    .then(answer => console.log(answer))
+```
+
 [Example](/src/bin/can-bind-to-host.ts)
 
 ### CLI
@@ -51,4 +60,6 @@ In general, `can-bind-to-host` can reliably detect whether a given host points t
 
 Unlike `is-localhost-ip` which uses regular expressions to determine if an IP is local and can mislead by unusual network configurations, this package can definitively rule out any host which is not local.
 
-For similar reasons as above, this package can return false negatives in case of using this package under an extremely restricted user. As long as the process uses this package can bind to a local port, it will be accurate.
+For similar reasons as above, this package can return false negatives in case of using this package under an extremely restricted user. This can be mitigated by running an additional check on `0.0.0.0` to see whether the process has the permissions to bind to localhost at all.
+
+As long as the process uses this package can bind to a local port, it will be accurate.

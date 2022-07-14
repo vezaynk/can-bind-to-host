@@ -1,6 +1,6 @@
 import net from 'net';
 
-const canBindToHost = (host: string, port: number = 0) => {
+const canBindToHost = (host: string = "0.0.0.0", port: number = 0) => {
   let server: net.Server | null = null;
   return new Promise<boolean>((res) => {
     if (port >= 0 && port <= 65_535)
