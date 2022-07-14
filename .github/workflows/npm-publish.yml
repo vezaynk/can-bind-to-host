@@ -28,6 +28,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: |
-          [ -z `npm diff --diff-name-only=true` ] || npm publish
+          diff=`npm diff --diff-name-only=true`
+          [ -z "$diff" ] || npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
