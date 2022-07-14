@@ -17,6 +17,7 @@ jobs:
         node-version: 16
     - run: npm ci
     - run: npm run build
+    - run: git fetch origin
     - run: |
         diff=`npm diff --diff-name-only=true`
         oldVersion=`git show origin/master:package.json | jq .version`
