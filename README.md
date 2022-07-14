@@ -4,10 +4,51 @@
 
 This package was written to replace the abandonned `is-localhost-ip` package.
 
-# Localhost False Positives
+> **Note:** In the context of this README, `localhost` is used as a familiar term for _the IPs (or hostnames that resolve to them) which are associated with the network interface(s) of the local system_. This includes `localhost`, `127.0.0.1`, `0.0.0.0`, `::1`, and even public domains that happen to resolve to an IP which points to your own system.
+
+## Implementation
+
+The implementation of `can-bind-to-host` is very short (it's less than 25 lines!). It functions by attempting to create a TCP server on the specified host (and optionally port). The underlying standard `net` module handles DNS resolution as needed.
+
+## Usage
+
+### API
+
+[Example](/src/bin/can-bind-to-host.ts)
+
+### CLI
+
+You can try out the package via `npx` in CLI:
+
+Usage:
+
+```
+npx can-bind-to-host [hostname] [port]
+```
+
+Examples:
+
+```bash
+$ npx can-bind-to-host           
+0.0.0.0:0 is bindable
+
+$ npx can-bind-to-host localhost 8080
+localhost:8080 is bindable
+
+$ npx can-bind-to-host localhost
+localhost:0 is bindable
+```
+
+## Can I use `can-bind-to-host` to check if a host is localhost?
+
+### Short Answer:
+
+**Yes!**
+
+### Long Answer:
+
+In general, `can-bind-to-host` can reliably detect whether a given host points to localhost.
 
 Unlike `is-localhost-ip` which uses regular expressions to determine if an IP is local and can mislead by unusual network configurations, this package can definitively rule out any host which is not local.
-
-# Localhost False Negatives
 
 For similar reasons as above, this package can return false negatives in case of using this package under an extremely restricted user. As long as the process uses this package can bind to a local port, it will be accurate.

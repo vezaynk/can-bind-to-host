@@ -1,12 +1,16 @@
 {
   "name": "can-bind-to-host",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Utility package to see if the node process can bind to the host or listen on a port. Can be used for checking if a host resolves to localhost.",
   "main": "dist/index.js",
   "files": [
     "dist/**"
   ],
+  "bin": {
+    "can-bind-to-host": "./dist/bin/can-bind-to-host.js"
+  },
   "scripts": {
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "build": "tsc",
     "format": "prettier --write \"src/**\"",
