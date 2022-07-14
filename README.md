@@ -1,5 +1,9 @@
 # can-bind-to-host
 
+[![Node.js CI](https://github.com/knyzorg/can-bind-to-host/actions/workflows/node.js.yml/badge.svg)](https://github.com/knyzorg/can-bind-to-host/actions/workflows/node.js.yml)
+
+[![Publish to NPM](https://github.com/knyzorg/can-bind-to-host/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/knyzorg/can-bind-to-host/actions/workflows/npm-publish.yml)
+
 `can-bind-to-host` serves to definitively tell if a host (hostname or IP address) can be bound to. This is useful to determining if the given host is equivalent to `localhost`.
 
 This package was written to replace the abandonned `is-localhost-ip` package.
