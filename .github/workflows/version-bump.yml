@@ -1,0 +1,45 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Version Bump
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: npm ci
+    - run: npm run build
+    - run: |
+        diff=`npm diff --diff-name-only=true`
+        oldVersion=`git show master:package.json | jq .version`
+        newVersion=`jq .version package.json`
+
+        echo "Old Version: $oldVersion"
+        echo "New Version: $newVersion"
+        echo "Changed Files: $diff"
+        
+        if [ -z "$diff" ]
+        then
+          echo "No changes to package. Must not bump version."
+          if [[ "$oldVersion" == "$newVersion" ]]
+          then
+            exit 0
+          else
+            exit 1
+          fi
+        else
+          echo "Changes to package. Must bump version."
+          if [[ "$oldVersion" == "$newVersion" ]]
+          then
+            exit 1
+          else
+            exit 0
+        fi
