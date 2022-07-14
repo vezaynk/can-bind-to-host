@@ -19,13 +19,13 @@ jobs:
     - run: npm run build
     - run: |
         diff=`npm diff --diff-name-only=true`
-        oldVersion=`git show master:package.json | jq .version`
+        oldVersion=`git show origin/master:package.json | jq .version`
         newVersion=`jq .version package.json`
 
         echo "Old Version: $oldVersion"
         echo "New Version: $newVersion"
         echo "Changed Files: $diff"
-        
+
         if [ -z "$diff" ]
         then
           echo "No changes to package. Must not bump version."
