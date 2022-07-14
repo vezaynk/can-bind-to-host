@@ -27,6 +27,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm run build
       - run: |
           diff=`npm diff --diff-name-only=true`
           [ -z "$diff" ] || npm publish
